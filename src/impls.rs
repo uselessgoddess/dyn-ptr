@@ -1,5 +1,5 @@
 use crate::DynBox;
-use std::{
+use core::{
     future::Future,
     iter::FusedIterator,
     pin::Pin,

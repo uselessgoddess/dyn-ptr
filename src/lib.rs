@@ -1,10 +1,14 @@
+#![no_std]
 #![feature(unsize, ptr_metadata)]
 #![feature(exact_size_is_empty)]
 #![cfg_attr(feature = "any-ptr", generic_const_exprs)]
 
+extern crate alloc;
+
 mod impls;
 
-use std::{
+use alloc::boxed::Box;
+use core::{
     marker::Unsize,
     mem::{self, ManuallyDrop},
     ops::{Deref, DerefMut},
@@ -128,38 +132,3 @@ impl<Dyn: ?Sized> Drop for DynBox<Dyn> {
 }
 
 pub type Dyn<Trait> = DynBox<Trait>;
-
-#[cfg(test)]
-pub mod tests {
-    use crate::{Dyn, PointerLike};
-    use std::{fmt, future::Future, io, ops::Deref};
-
-    #[test]
-    fn basic() {
-        fn display_eq(a: impl fmt::Display, b: Dyn<dyn fmt::Display>) {
-            // need to use manual deref
-            assert_eq!(format!("{a}"), format!("{}", &*b))
-        }
-
-        display_eq(2, Dyn::new(2));
-        display_eq(2, 2.do_dyn());
-    }
-
-    #[test]
-    fn futures() {
-        pub trait DynAsync {
-            // fn read(&mut self, buf: &mut [u8]) -> io::Result<usize>;
-            fn read(&mut self, buf: &mut [u8]) -> Dyn<dyn Future<Output = io::Result<usize>>>;
-        }
-
-        impl DynAsync for () {
-            fn read(&mut self, buf: &mut [u8]) -> Dyn<dyn Future<Output = io::Result<usize>>> {
-                // Box::pin(...)
-                // OtherBox::new(...)
-                // SmallFuture::new(...)
-                // PreAllocatedFuture::from(..)
-                todo!()
-            }
-        }
-    }
-}
