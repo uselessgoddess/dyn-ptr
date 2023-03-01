@@ -3,5 +3,17 @@ name = "dyn-ptr"
 version = "0.1.0"
 edition = "2021"
 
+authors = ["uselessgoddess <dodickgod@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/uselessgoddess/dyn-ptr"
+homepage = "https://github.com/uselessgoddess/dyn-ptr"
+description = """
+A box that stores types like pointers,
+forgetting everything besides `Self: Unsize<dyn Trait>`
+"""
+categories = ["no-std", "rust-patters", "data-structures"]
+keywords = ["no_std", "box", "unsized"]
+
 [features]
 any-ptr = []
