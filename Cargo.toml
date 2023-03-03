@@ -1,6 +1,6 @@
 [package]
 name = "dyn-ptr"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 
 authors = ["uselessgoddess <dodickgod@gmail.com>"]
@@ -12,7 +12,7 @@ description = """
 A box that stores types like pointers,
 forgetting everything besides `Self: Unsize<dyn Trait>`
 """
-categories = ["no-std", "rust-patters", "data-structures"]
+categories = ["no-std", "rust-patterns", "data-structures"]
 keywords = ["no_std", "box", "unsized"]
 
 [features]
