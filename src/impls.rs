@@ -1,4 +1,4 @@
-use crate::DynBox;
+use crate::DynPtr;
 use core::{
     future::Future,
     iter::FusedIterator,
@@ -6,7 +6,7 @@ use core::{
     task::{Context, Poll},
 };
 
-impl<F: ?Sized + Future + Unpin> Future for DynBox<F> {
+impl<F: ?Sized + Future + Unpin> Future for DynPtr<F> {
     type Output = F::Output;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
@@ -14,7 +14,7 @@ impl<F: ?Sized + Future + Unpin> Future for DynBox<F> {
     }
 }
 
-impl<I: Iterator + ?Sized> Iterator for DynBox<I> {
+impl<I: Iterator + ?Sized> Iterator for DynPtr<I> {
     type Item = I::Item;
     fn next(&mut self) -> Option<I::Item> {
         (**self).next()
@@ -35,7 +35,7 @@ impl<I: Iterator + ?Sized> Iterator for DynBox<I> {
     }
 }
 
-impl<I: DoubleEndedIterator + ?Sized> DoubleEndedIterator for DynBox<I> {
+impl<I: DoubleEndedIterator + ?Sized> DoubleEndedIterator for DynPtr<I> {
     fn next_back(&mut self) -> Option<I::Item> {
         (**self).next_back()
     }
@@ -44,7 +44,7 @@ impl<I: DoubleEndedIterator + ?Sized> DoubleEndedIterator for DynBox<I> {
     }
 }
 
-impl<I: ExactSizeIterator + ?Sized> ExactSizeIterator for DynBox<I> {
+impl<I: ExactSizeIterator + ?Sized> ExactSizeIterator for DynPtr<I> {
     fn len(&self) -> usize {
         (**self).len()
     }
@@ -53,4 +53,4 @@ impl<I: ExactSizeIterator + ?Sized> ExactSizeIterator for DynBox<I> {
     }
 }
 
-impl<I: FusedIterator + ?Sized> FusedIterator for DynBox<I> {}
+impl<I: FusedIterator + ?Sized> FusedIterator for DynPtr<I> {}

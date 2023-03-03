@@ -1,6 +1,6 @@
 [package]
 name = "dyn-ptr"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 authors = ["uselessgoddess <dodickgod@gmail.com>"]
@@ -17,3 +17,7 @@ keywords = ["no_std", "box", "unsized"]
 
 [features]
 any-ptr = []
+default = ["any-ptr"]
+
+[dev-dependencies]
+trybuild = "1.0"
