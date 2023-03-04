@@ -1,3 +1,4 @@
+#[cfg(not(miri))]
 #[test]
 fn try_build() {
     let t = trybuild::TestCases::new();

@@ -42,7 +42,10 @@ impl Trait for Box<Fat> {
 }
 
 fn thin() -> Dyn<dyn Trait> {
-    DynRepr { inner: Thin(234) }.do_dyn()
+    // initialize zeroed to next `transmute_copy`
+    let mut uni = DynRepr { _repr: unsafe { mem::zeroed() } };
+    uni.inner = Thin(234);
+    uni.do_dyn()
 }
 
 fn fat() -> Dyn<dyn Trait> {

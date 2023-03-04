@@ -4,11 +4,12 @@
 #![feature(unsize, ptr_metadata, exact_size_is_empty, trivial_bounds)]
 //#![feature(specialization)]
 
+#[cfg(not(feature = "any-ptr"))]
 extern crate alloc;
 
 mod impls;
 
-#[cfg_attr(feature = "any-ptr", allow(unused_imports))]
+#[cfg(not(feature = "any-ptr"))]
 use alloc::boxed::Box;
 use core::{
     marker::Unsize,
