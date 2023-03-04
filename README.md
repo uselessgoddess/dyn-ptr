@@ -123,10 +123,10 @@ This is what the raw creation of `DynPtr` for `Box` might look like:
 
 ```rust
 let ptr = DynPtr::<dyn Display> {
-repr: Box::into_raw(x) as PtrRepr,
-drop: | repr | unsafe {
-let _ = Box::from_raw(repr as *mut i32);
-},
+    repr: Box::into_raw(x) as PtrRepr,
+    drop: |repr| unsafe {
+        let _ = Box::from_raw(repr as *mut i32);
+    },
 };
 (ptr.drop)(ptr.repr); // drop original box 
 ```
